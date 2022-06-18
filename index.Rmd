@@ -1,0 +1,11 @@
+---
+title: "Datos estadísticas policiales"
+author: "Sofía Moya"
+date: '2022-06-18'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

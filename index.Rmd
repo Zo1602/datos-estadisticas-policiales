@@ -57,7 +57,7 @@ estadisticas_policiales %>%
 ```
 
 
-# Gráfico 1 de barras simples:
+# Gráfico 1.Barras simples: Delito por tipo de delito
 
 ```{r grafico, message = FALSE}
 
@@ -75,7 +75,7 @@ ggplotly(ggplot2_estadisticas_policiales) %>% config(locale = 'es')
 ```
 
 
-# Gráfico 2
+# Gráfico 2.Barras simples: Delitos por mes
 
 ```{r, message = FALSE}
 informacion <-
@@ -101,7 +101,7 @@ grafico_delitos_meses <-
 ggplotly(grafico_delitos_meses)
 ```
 
-# Grafico 3 barras apiladas: Delitos por género
+# Grafico 3. Barras apiladas: Delitos por género
 
 ```{r}
 grafico_barras_delitos_genero <-
@@ -117,4 +117,26 @@ grafico_barras_delitos_genero <-
 
 ggplotly(grafico_barras_delitos_genero) 
 ```
+
+# Gráfico 4. Barras simples. Delitos en cantones.
+
+```{r, message = FALSE}
+
+grafico_barras_simples_cantones <-
+estadisticas_policiales %>%
+  count(Canton) %>%
+  filter(Canton == "SAN JOSE" |
+         Canton == "ALAJUELA" |
+         Canton == "CARTAGO" |
+         Canton == "HEREDIA") %>%
+  ggplot(aes(x = reorder(Canton, n), y = n)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  ggtitle("Cantidad de delitos por cantones") +
+  xlab("Cantón") +
+  ylab("Cantidad") +
+  theme_gray() 
+ggplotly(grafico_barras_simples_cantones)
+```
+
 

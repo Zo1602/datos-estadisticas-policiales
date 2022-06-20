@@ -1,5 +1,5 @@
 ---
-title: "Datos estadísticas policiales"
+title: "Tarea 2: Datos estadísticas policiales"
 author: "Sofía Moya"
 date: '2022-06-18'
 output:
@@ -33,7 +33,10 @@ estadisticas_policiales <-
 
 ```
 
-# Tabla
+# Desarrollo:
+
+
+## Tabla DT
 
 ```{r tabla, message = FALSE}
 estadisticas_policiales %>%
@@ -57,7 +60,7 @@ estadisticas_policiales %>%
 ```
 
 
-# Gráfico 1.Barras simples: Delito por tipo de delito
+## Gráfico 1. Barras simples: Delito por tipo de delito
 
 ```{r grafico, message = FALSE}
 
@@ -75,7 +78,7 @@ ggplotly(ggplot2_estadisticas_policiales) %>% config(locale = 'es')
 ```
 
 
-# Gráfico 2.Barras simples: Delitos por mes
+## Gráfico 2. Barras simples: Delitos por mes del año
 
 ```{r, message = FALSE}
 informacion <-
@@ -92,16 +95,16 @@ grafico_delitos_meses <-
   count(meses) %>%
   ggplot(level = level_order, (aes(x = reorder (fechas, meses), y = n))) +
   geom_bar(stat = "identity") +
-  ggtitle("Delitos por mes del año 2021") +
+  ggtitle("Cantidad de delitos por mes del año 2021") +
   xlab("Mes") +
-  ylab("Número de registros") +
+  ylab("Cantidad") +
   coord_flip() +
   theme_light()
 
 ggplotly(grafico_delitos_meses)
 ```
 
-# Grafico 3. Barras apiladas: Delitos por género
+## Grafico 3. Barras apiladas: Delitos por género
 
 ```{r}
 grafico_barras_delitos_genero <-
@@ -118,7 +121,7 @@ grafico_barras_delitos_genero <-
 ggplotly(grafico_barras_delitos_genero) 
 ```
 
-# Gráfico 4. Barras simples. Delitos en cantones.
+## Gráfico 4. Barras simples. Delitos en cantones.
 
 ```{r, message = FALSE}
 

@@ -2,9 +2,15 @@
 title: "Datos estadísticas policiales"
 author: "Sofía Moya"
 date: '2022-06-18'
-output: html_document
-code_folding: hide
+output:
+  html_document:
+    code_folding: hide
+
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 # Lectura carga de paquetes
 ```{r carga-paquetes, message = FALSE }
@@ -15,6 +21,8 @@ library(sf)
 library(DT)
 library(readxl)
 library(readr)
+library(leaflet)
+library(lubridate)
 ```
 
 # Lectura datos estadísticas policiales 
@@ -46,10 +54,10 @@ estadisticas_policiales %>%
   )
 
 
-
 ```
 
-# Gráfico 2
+
+# Gráfico 1 de barras simples:
 
 ```{r grafico, message = FALSE}
 
@@ -64,7 +72,49 @@ estadisticas_policiales %>%
   ylab("Cantidad") +
   theme_gray() 
 ggplotly(ggplot2_estadisticas_policiales) %>% config(locale = 'es')
+```
+
+
+# Gráfico 2
+
+```{r, message = FALSE}
+informacion <-
+  estadisticas_policiales %>%
+  mutate(meses = lubridate::month(Fecha))
+
+fechas <-c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre")
 
 ```
 
+```{r, message = FALSE}
+grafico_delitos_meses <-
+  informacion %>%
+  count(meses) %>%
+  ggplot(level = level_order, (aes(x = reorder (fechas, meses), y = n))) +
+  geom_bar(stat = "identity") +
+  ggtitle("Delitos por mes del año 2021") +
+  xlab("Mes") +
+  ylab("Número de registros") +
+  coord_flip() +
+  theme_light()
+
+ggplotly(grafico_delitos_meses)
+```
+
+# Grafico 3 barras apiladas: Delitos por género
+
+```{r}
+grafico_barras_delitos_genero <-
+  estadisticas_policiales %>%
+  ggplot(aes(x = Delito, fill = Genero)) +
+  geom_bar(position = "fill") +
+  ggtitle("Cantidad de delitos por género") +
+  xlab("Delitos") +
+  ylab("Cantidad") +
+  labs(fill = "Género") +
+  coord_flip() +
+  theme_classic()
+
+ggplotly(grafico_barras_delitos_genero) 
+```
 

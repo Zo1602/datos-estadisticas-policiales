@@ -1,2 +1,2 @@
 # datos-estadisticas-policiales
-Datos estadísticos policiales en el año 2021 en Costa Rica.
+Tarea 2 sobre los datos de estadísticas policiales en el año 2021 en Costa Rica.
